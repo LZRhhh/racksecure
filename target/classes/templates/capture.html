@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 GetUserMedia Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+</head>
+<body>
+<div class="box">
+    <video src=""></video>
+    <button class='shot'>拍照</button>
+    <canvas id='canvas'></canvas>
+    <img src=''>
+</div>
+
+
+<script type="text/javascript">
+    var constraints = {audio: true, video: {width: 200,height: 250}};
+    // 开启视频
+    navigator.mediaDevices.getUserMedia(constraints).then(function(mediaStream) {
+        console.log('getUserMedia:', mediaStream)
+        var video = document.querySelector('video');
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = function(e) {
+            video.play();
+        };
+
+        // 使用canvas进行拍照
+        var canvas = document.getElementById('canvas')
+        $('button').on('click', function () {
+            canvas.getContext('2d').drawImage(video, 0, 0, 200, 250);
+            $('img').css('src', canvas.toDataURL("image/png"))
+        })
+
+    }).catch(function(err) {
+        console.log(err.name + ": " + err.message);
+    });
+
+</script>
+</body>
+</html>

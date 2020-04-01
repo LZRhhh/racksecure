@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Rack</title>
+</head>
+<body>
+<table>
+    <tr th:each = "r:${rs}">
+        <td th:text="${r.id}"></td>
+        <td th:text="${r.status}"></td>
+    </tr>
+</table>
+</body>
+</html>
