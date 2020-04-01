@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>拍照上传</title>
+    <link href="../../static/css/index.css" th:href="@{/static/css/index.css}" media="all" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="index__tips" id="index__tips"></div>
+<div class="index__title">请将您的脸部正面放置于下方提示区域，并点击“拍照”按钮。</div>
+<div class="index__video-panel">
+    <!-- 显示摄像头拍摄到的视频 -->
+    <video id="index__video" class="index__video"></video>
+    <!-- 视频上的提示框 -->
+    <svg width="200" height="200" class="index__video-over">
+        <!-- 克莱因蓝 #002FA7 -->
+        <polyline  points="5,50 5,5 50,5" fill-opacity="0"
+                   style="stroke:#002FA7;stroke-width:10"/>
+        <polyline  points="5,150 5,195 50,195"  fill-opacity="0"
+                   style="stroke:#002FA7;stroke-width:10"/>
+        <polyline  points="155,5 195,5 195,45"  fill-opacity="0"
+                   style="stroke:#002FA7;stroke-width:10"/>
+        <polyline  points="155,195 195,195 195,155"  fill-opacity="0"
+                   style="stroke:#002FA7;stroke-width:10"/>
+    </svg>
+    <!-- 视频上的拍照按钮 -->
+    <div class="index__video-over-button" onclick="indexObj.uploadImg()">拍照并上传</div>
+</div>
+<!-- 用户ID -->
+<input type="hidden" th:value="${username}" id="index__user-id"/>
+<!-- 用于给video标签截图的画布 -->
+<canvas id="index__canvas" style="display:none;"></canvas>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js" th:src="@{https://unpkg.com/axios/dist/axios.min.js}"></script>
+<script type="text/javascript" src="../../static/js/index.js" th:src="@{/static/js/index.js}"></script>
+</body>
+</html>

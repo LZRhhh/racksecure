@@ -1,0 +1,89 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Information</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body style="background-color: #f1f1f1; padding-bottom: 0">
+
+<div th:insert="~{header :: nav}"></div>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="container">
+    <div class="panel panel-warning addDiv">
+        <div class="panel-heading">Update Face</div>
+        <div class="panel-body">
+            <form method="post" id="addForm" th:action="@{'/admin/users/'+${u.username}+'/face'}" enctype="multipart/form-data">
+                <table class="addTable">
+                    <tr>
+                        <td>
+                            <input id="faceImg" accept="image/*" type="file" name="image" />
+                        </td>
+                        <td class="submitTR" colspan="2" align="center">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table table-striped">
+        <!--/*@thymesVar id="users" type="java"*/-->
+        <thead>
+        <tr>
+            <th>Face</th>
+            <th>Username</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tr>
+            <td><img height="40px" src="../../static/img/default.png"
+                     th:src="@{'/static/img/' + ${u.username} + '.jpg'}"
+                     th:onerror="@{this.src='/static/img/default.png'}"></td>
+            <td><span th:text="${username}">Username</span></td>
+            <td><a th:href="@{'/admin/users/'+${username}} ">Edit</a></td>
+            <td><a th:href="@{'/admin/users/' + ${username}}">Delete</a></td>
+        </tr>
+    </table>
+    
+</div>
+
+<script>
+    $("img").one('error',function () {
+        $(this).attr('src', "/static/img/default.png");
+    });
+</script>
+
+<script src="../../static/js/jquery.min.js" th:src="@{/static/js/jquery.min.js}">
+    $(function(){
+
+        $("#addForm").submit(function(){
+            if(!checkEmpty("faceImg","Face image"))
+                return false;
+            return true;
+        });
+    });
+
+</script>
+
+<script>
+    function checkEmpty(id, name){
+        const value = $("#" + id).val();
+        if(value.length==0){
+            alert(name+ " cannot be null");
+            $("#"+id)[0].focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
