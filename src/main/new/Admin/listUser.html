@@ -1,0 +1,45 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rack Secure|Users</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+</head>
+
+<body style="background-color: #f1f1f1; padding-bottom: 0">
+
+<div th:insert="~{header :: nav}"></div>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+<table class="table table-striped">
+    <!--/*@thymesVar id="users" type="java"*/-->
+    <thead>
+        <tr>
+            <th>Face</th>
+            <th>Username</th>
+            <th>Edit</th>
+<!--            <th>Delete</th>-->
+        </tr>
+    </thead>
+    <tr th:each = "u:${users}">
+        <td><img height="40px" th:onerror="@{this.src='/static/img/default.png'}" th:src="@{'/static/img/'+${u.username}+'.jpg'}"></td>
+        <td><a th:text="${u.username}" th:href="@{'/admin/users/' + ${u.username}}"></a></td>
+        <td><a th:href="@{'/admin/users/'+${u.username}} ">Edit</a></td>
+        <td><a th:href="@{'/admin/users/' + ${u.username}}" th:method='POST'></a></td>
+    </tr>
+</table>
+    <a class="btn btn-success" th:href="@{/admin/register}">Add</a>
+</div>
+
+
+<script>
+    $("img").on('error',function () {
+        $(this).attr('src', 'default.png');
+    });
+</script>
+</body>
+</html>
